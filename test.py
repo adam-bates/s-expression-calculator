@@ -64,6 +64,32 @@ class SExpressionCalculatorTest(unittest.TestCase):
             b = random.randrange(10001)
             self.assertEqual(SExpressionCalc.calc('(multiply ' + str(a) + ' ' + str(b) + ')'), a*b)
 
+    def test_nested_functions(self):
+        self.assertEqual(SExpressionCalc.calc('(add (add 1 2) 5)'), 8)
+        self.assertEqual(SExpressionCalc.calc('(add (multiply 2 3) 7)'), 13)
+
+        self.assertEqual(SExpressionCalc.calc('(add 3 (add 1 2))'), 6)
+        self.assertEqual(SExpressionCalc.calc('(add 3 (multiply 1 2))'), 5)
+
+        self.assertEqual(SExpressionCalc.calc('(add (add 1 2) (add 3 4))'), 10)
+        self.assertEqual(SExpressionCalc.calc('(add (add 1 2) (multiply 1 2))'), 5)
+        self.assertEqual(SExpressionCalc.calc('(add (multiply 5 3) (add 3 4))'), 22)
+        self.assertEqual(SExpressionCalc.calc('(add (multiply 5 3) (multiply 3 4))'), 27)
+
+        self.assertEqual(SExpressionCalc.calc('(multiply (add 1 2) 5)'), 15)
+        self.assertEqual(SExpressionCalc.calc('(multiply (multiply 2 3) 7)'), 42)
+
+        self.assertEqual(SExpressionCalc.calc('(multiply 3 (add 1 2))'), 9)
+        self.assertEqual(SExpressionCalc.calc('(multiply 3 (multiply 1 2))'), 6)
+
+        self.assertEqual(SExpressionCalc.calc('(multiply (add 1 2) (add 3 4))'), 21)
+        self.assertEqual(SExpressionCalc.calc('(multiply (add 1 2) (multiply 1 2))'), 6)
+        self.assertEqual(SExpressionCalc.calc('(multiply (multiply 5 3) (add 3 4))'), 105)
+        self.assertEqual(SExpressionCalc.calc('(multiply (multiply 5 3) (multiply 3 4))'), 180)
+
+        self.assertEqual(SExpressionCalc.calc('(multiply (add (multiply 1 2) 3) (add 1 2))'), 15)
+        self.assertEqual(SExpressionCalc.calc('(multiply (add (multiply 1 2) (add 3 4)) (multiply (add 5 6) (multiply 7 8)))'), 5544)
+
 
 if __name__ == '__main__':
     unittest.main()
