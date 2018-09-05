@@ -4,7 +4,11 @@ import sys
 class SExpressionCalc:
     @staticmethod
     def calc(string):
-        return int(string)
+        expression = string.split()
+        if len(expression) == 1:
+            return int(expression[0].replace('(', '').replace(')', ''))
+        elif expression[0] == '(add':
+            return SExpressionCalc.calc(expression[1]) + SExpressionCalc.calc(expression[2])
 
 
 def main():
