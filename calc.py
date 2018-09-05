@@ -1,7 +1,7 @@
 import sys
 
 
-class SExpressionCalc:
+class SExpression:
 
     @staticmethod
     def calc(str_input):
@@ -9,31 +9,35 @@ class SExpressionCalc:
         if str_input[0] == '(' and str_input[-1] == ')':
             str_input = str_input[1:-1]
 
-        # 2. Base Case: Check if str_input is alone (it. just an integer)
-        pieces = str_input.split()
-        if len(pieces) == 1:
-            return int(pieces[0])
-
-        # 3. Loop through nested expressions and calculate each
+        # 2. Loop through nested expressions and evaluate each
         while ')' in str_input:
-            # Start with first expression to close (ie. first index of ')')
-            right_bound = str_input.index(')') + 1
+            # Start with the first expression to close (ie. first index of ')')
+            right_bound = str_input.index(')')
             left_bound = str_input[:right_bound].rindex('(')
 
-            # Update str_input and pieces, replacing expression with calculated value
-            str_input = str_input[:left_bound] + str(SExpressionCalc.calc(str_input[left_bound:right_bound])) + str_input[right_bound:]
-            pieces = str_input.split()
+            # Update str_input, replacing expression with calculated value
+            value = SExpression._evaluate_single(str_input[left_bound + 1:right_bound])
+            str_input = str_input[:left_bound] + str(value) + str_input[right_bound+1:]
 
-        # 4. Evaluate
+        # 3. Evaluate out-most expression
+        return SExpression._evaluate_single(str_input)
+
+    @staticmethod
+    def _evaluate_single(str_input):
+        pieces = str_input.split()
+
         if pieces[0] == 'add':
-            return SExpressionCalc.calc(pieces[1]) + SExpressionCalc.calc(pieces[2])
+            return int(pieces[1]) + int(pieces[2])
 
         elif pieces[0] == 'multiply':
-            return SExpressionCalc.calc(pieces[1]) * SExpressionCalc.calc(pieces[2])
+            return int(pieces[1]) * int(pieces[2])
+
+        else:
+            return int(str_input)
 
 
 def main():
-    print(SExpressionCalc.calc(sys.argv[1]))
+    print(SExpression.calc(sys.argv[1]))
 
 
 if __name__ == '__main__':
