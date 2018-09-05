@@ -65,6 +65,7 @@ class SExpressionCalculatorTest(unittest.TestCase):
             self.assertEqual(SExpressionCalc.calc('(multiply ' + str(a) + ' ' + str(b) + ')'), a*b)
 
     def test_nested_functions(self):
+        # Each combination of 1 layer of nested functions
         self.assertEqual(SExpressionCalc.calc('(add (add 1 2) 5)'), 8)
         self.assertEqual(SExpressionCalc.calc('(add (multiply 2 3) 7)'), 13)
 
@@ -87,6 +88,7 @@ class SExpressionCalculatorTest(unittest.TestCase):
         self.assertEqual(SExpressionCalc.calc('(multiply (multiply 5 3) (add 3 4))'), 105)
         self.assertEqual(SExpressionCalc.calc('(multiply (multiply 5 3) (multiply 3 4))'), 180)
 
+        # More complex combinations
         self.assertEqual(SExpressionCalc.calc('(multiply (add (multiply 1 2) 3) (add 1 2))'), 15)
         self.assertEqual(SExpressionCalc.calc('(multiply (add (multiply 1 2) (add 3 4)) (multiply (add 5 6) (multiply 7 8)))'), 5544)
 
