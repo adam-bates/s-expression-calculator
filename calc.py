@@ -10,7 +10,6 @@ class SExpression:
             right_bound = str_input.index(')')
             left_bound = str_input[:right_bound].rindex('(')
 
-            # Update str_input, replacing expression with calculated value
             # Note: Because we're getting the first expression to close,
             #       it is guaranteed not to have nested functions inside
             value = SExpression._evaluate_single(str_input[left_bound + 1:right_bound])
@@ -18,6 +17,7 @@ class SExpression:
             if left_bound == 0:
                 return value
 
+            # Update str_input, replacing expression with calculated value
             else:
                 str_input = str_input[:left_bound] + str(value) + str_input[right_bound+1:]
 
