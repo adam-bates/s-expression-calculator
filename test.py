@@ -47,6 +47,23 @@ class SExpressionCalculatorTest(unittest.TestCase):
             b = random.randrange(10001)
             self.assertEqual(SExpressionCalc.calc('(add ' + str(a) + ' ' + str(b) + ')'), a+b)
 
+    def test_single_multiply(self):
+        # explicit checks
+        self.assertEqual(SExpressionCalc.calc('(multiply 1 1)'), 1)
+        self.assertEqual(SExpressionCalc.calc('(multiply 12 4)'), 48)
+        self.assertEqual(SExpressionCalc.calc('(multiply 321 456)'), 146376)
+
+        # check 0 * 0 through 100 * 100
+        for i in range(0, 100):
+            for j in range(0, 100):
+                self.assertEqual(SExpressionCalc.calc('(multiply ' + str(i) + ' ' + str(j) + ')'), i*j)
+
+        # check random values between 0 through 10,000 (100 times)
+        for i in range(0, 100):
+            a = random.randrange(10001)
+            b = random.randrange(10001)
+            self.assertEqual(SExpressionCalc.calc('(multiply ' + str(a) + ' ' + str(b) + ')'), a*b)
+
 
 if __name__ == '__main__':
     unittest.main()

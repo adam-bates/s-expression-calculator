@@ -9,6 +9,8 @@ class SExpressionCalc:
             return int(expression[0].replace('(', '').replace(')', ''))
         elif expression[0] == '(add':
             return SExpressionCalc.calc(expression[1]) + SExpressionCalc.calc(expression[2])
+        elif expression[0] == '(multiply':
+            return SExpressionCalc.calc(expression[1]) * SExpressionCalc.calc(expression[2])
 
 
 def main():
