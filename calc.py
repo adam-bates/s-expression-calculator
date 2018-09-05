@@ -4,7 +4,7 @@ import sys
 class SExpressionCalc:
     @staticmethod
     def calc(string):
-        return string
+        return int(string)
 
 
 def main():
